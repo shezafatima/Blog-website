@@ -71,8 +71,11 @@ const Navbar = () => {
        <Link href="/contact" >
        Contact</Link>
         </div>
+        <div className="sm:mb-0 mb-20 flex items-center justify-between gap-6 flex-wrap" >
+
         <SearchBar/>
         <ThemeSwitch />
+        </div>
     
       </div>
     </div>

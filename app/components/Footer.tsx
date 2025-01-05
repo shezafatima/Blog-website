@@ -6,14 +6,14 @@ function Footer() {
   return (
     <div>
         <footer className="footer  text-base-content p-10 dark:bg-slate-800 dark:text-white bg-gray-300">
- <aside className='ml-8'>
+ <aside className='sm:ml-8  '>
  <Link href="/">
           <div className={`${font.className} text-3xl dark:text-amber-50`}>
             TechNow
             <span className="text-purple-500">ledge</span>
           </div>
         </Link>
-        <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
+        <p className='break-words flex text-wrap'>Copyright © {new Date().getFullYear()} - All right reserved</p>
  </aside>
   <form>
     <h6 className="footer-title">Newsletter</h6>
@@ -21,12 +21,12 @@ function Footer() {
       <label className="label">
         <span className="label-text dark:text-white">Enter your email address</span>
       </label>
-      <div className="join">
+      <div className="join ">
         <input
           type="text"
           placeholder="Your Email..."
-          className="p-2 border border-gray-500 join-item" />
-        <button className="text-white bg-purple-600 px-3 py-2 text-sm rounded join-item hover:bg-purple-500 ">Subscribe</button>
+          className="p-2 border border-gray-500 join-item sm:w-full w-36" />
+        <button className="text-white bg-purple-600 sm:px-3  sm:py-2 text-sm  p-1 rounded join-item hover:bg-purple-500 ">Subscribe</button>
       </div>
     </fieldset>
   </form>

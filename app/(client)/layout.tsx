@@ -29,7 +29,7 @@ export default function RootLayout({
       >
         <Provider>
           <Navbar />
-          <main className="h-full mx-auto max-w-7xl px-6 mb-10 ">{children}</main>
+          <main className="h-full md:mx-auto max-w-7xl px-6 mb-10 ">{children}</main>
         <Footer />
         </Provider>
 
