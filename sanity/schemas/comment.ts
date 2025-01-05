@@ -12,12 +12,6 @@ export const comment = defineType({
       readOnly: true,
     },
     {
-      name: "email",
-      title: "Email",
-      type: "string",
-      readOnly: true,
-    },
-    {
       name: "comment",
       title: "Comment",
       type: "text",

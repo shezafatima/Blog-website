@@ -2,6 +2,7 @@ export interface Post {
   title: string
   slug: { current: string };
   publishedAt: string;
+  image:any;
   excerpt: string;
   body: any;
   tags: Array<Tag>;

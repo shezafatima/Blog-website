@@ -1,27 +1,20 @@
 import type { Metadata } from "next";
-import { Fira_Code } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
-import { Provider } from "../utils/Provider";
+import { Provider } from "../utils/Provider"
+import Footer from "../components/Footer";
 
-const firaCode = Fira_Code({ subsets: ["latin"] });
+const firaCode = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://next-cms-blog-ce.vercel.app/"),
-  // title: "Dev Blook - A blog for developers",
+
   title: {
-    default: "Dev Blook - A blog for developers",
-    template: '%s | Dev Blook - A blog for developers'
+    default: "TechNowledge",
+    template: '%s | TechNowledge '
   },
-  description: "A blog for developers by developers!",
-  openGraph: {
-    title: "Dev Blook - A blog for developers",
-    description: "A blog for developers by developers!",
-    type: "website",
-    locale: "en_US",
-    url: "https://next-cms-blog-ce.vercel.app/",
-    siteName: "DevBlook"
-  },
+  description: " A blog about technology.",
+ 
 };
 
 export default function RootLayout({
@@ -36,8 +29,10 @@ export default function RootLayout({
       >
         <Provider>
           <Navbar />
-          <main className="h-full mx-auto max-w-5xl px-6">{children}</main>
+          <main className="h-full mx-auto max-w-7xl px-6 mb-10 ">{children}</main>
+        <Footer />
         </Provider>
+
       </body>
     </html>
   );

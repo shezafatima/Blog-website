@@ -13,11 +13,11 @@ const Header = ({ title = "", tags = false }: Props) => {
         {title}
       </h2>
 
-      {tags && (
+      {/* {tags && (
         <div className="text-xs mt-2 hover:text-purple-500">
           <Link href="/tag">#tags</Link>
         </div>
-      )}
+      )} */}
     </header>
   );
 };

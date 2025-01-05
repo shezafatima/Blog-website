@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request, res: Response) {
   const data = await req.json();
-  const { name, email, comment, postId } = data;
+  const { name,  comment, postId } = data;
 
-  if (!name || !email || !comment || !postId) {
+  if (!name || !comment || !postId) {
     return NextResponse.json(
       {
         message: "All fields are required",
@@ -18,7 +18,6 @@ export async function POST(req: Request, res: Response) {
     const newComment = await client.create({
       _type: "comment",
       name,
-      email,
       comment,
       post: {
         _type: "reference",

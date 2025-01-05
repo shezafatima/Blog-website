@@ -10,6 +10,7 @@ async function getPostsByTag(tag: string) {
     title,
     slug,
     publishedAt,
+    image,
     excerpt,
     tags[]-> {
       _id,
@@ -27,7 +28,7 @@ export const revalidate = 60;
 
 export async function generateMetadata({ params }: Params) {
   return {
-    title: `#${params.slug}`,
+    title: `${params.slug}`,
     description: `Posts with the tag ${params.slug}`,
     openGraph: {
       title: `#${params.slug}`,
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: Params) {
       type: "website",
       locale: "en_US",
       url: `https://next-cms-blog-ce.vercel.app/${params.slug}`,
-      siteName: "DevBlook",
+      siteName: "TechNowledge",
     },
   };
 }

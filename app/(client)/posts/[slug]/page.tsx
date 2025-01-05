@@ -1,21 +1,26 @@
 import AddComment from "@/app/components/AddComment";
 import AllComments from "@/app/components/AllComments";
 import Header from "@/app/components/Header";
+import LikeButton from "@/app/components/Like";
+import ShareButton from "@/app/components/Share";
 import Toc from "@/app/components/Toc";
 import { slugify } from "@/app/utils/helpers";
 import { Post } from "@/app/utils/interface";
 import { client } from "@/sanity/lib/client";
-import { urlForImage } from "@/sanity/lib/image";
+import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
-import { VT323 } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
+import { FaCalendarAlt } from "react-icons/fa";
+import Pagination  from "@/app/components/BlogPagination";
 
-const dateFont = VT323({ weight: "400", subsets: ["latin"] });
+import { BsEye } from "react-icons/bs";
 
+const dateFont = Poppins({ weight: "400", subsets: ["latin"] });
 interface Params {
   params: {
     slug: string;
@@ -31,6 +36,7 @@ async function getPost(slug: string, commentsOrder: string = "desc") {
     title,
     slug,
     publishedAt,
+    image,
     excerpt,
     _id,
     "headings": body[style in ["h2", "h3", "h4", "h5", "h6"]],
@@ -39,20 +45,21 @@ async function getPost(slug: string, commentsOrder: string = "desc") {
       _id,
       slug,
       name
-    },
-    "comments": *[_type == "comment" && post._ref == ^._id ] | order(_createdAt ${commentsOrder}) {
-      name,
-      comment,
-      _createdAt,
-    }
-  }
-  `;
-
-  const post = await client.fetch(query);
-  return post;
-}
+      },
+      "comments": *[_type == "comment" && post._ref == ^._id ] | order(_createdAt ${commentsOrder}) {
+        name,
+        comment,
+        _createdAt,
+        }
+        }
+        `;
+        
+        const post = await client.fetch(query);
+        return post;
+      }
 
 export const revalidate = 60;
+
 
 export async function generateMetadata({
   params,
@@ -71,11 +78,11 @@ export async function generateMetadata({
       type: "article",
       locale: "en_US",
       url: `https://next-cms-blog-ce.vercel.app/${params.slug}`,
-      siteName: "DevBlook",
+      siteName: "TechNowledge",
       images: [
         // {
         //   url: post.image,
-        // }
+        // },
         // {
         //   url: urlForImage(post?.body?.find((b: any) => b._type === "image")).width(1200).height(630).url(),
         //   width: 1200,
@@ -97,15 +104,20 @@ const page = async ({ params, searchParams }: Params) => {
   return (
     <div>
       <Header title={post?.title} />
+      
+                
       <div className="text-center">
-        <span className={`${dateFont?.className} text-purple-500`}>
+     
+        <span  className={`${dateFont?.className} flex  justify-center gap-2 items-center  text-purple-500`}>
+        <FaCalendarAlt />
           {new Date(post?.publishedAt).toDateString()}
         </span>
+     
         <div className="mt-5">
           {post?.tags?.map((tag) => (
             <Link key={tag?._id} href={`/tag/${tag.slug.current}`}>
               <span className="mr-2 p-1 rounded-sm text-sm lowercase dark:bg-gray-950 border dark:border-gray-900">
-                #{tag.name}
+                {tag.name}
               </span>
             </Link>
           ))}
@@ -116,6 +128,15 @@ const page = async ({ params, searchParams }: Params) => {
             value={post?.body}
             components={myPortableTextComponents}
           />
+          <div className="flex items-center gap-4">
+
+          <LikeButton postId={post?._id} /> 
+          <ShareButton  />
+       <div className='text-lg'>
+       
+       <BsEye />
+       </div>
+          </div>
           <AddComment postId={post?._id} />
           <AllComments
             comments={post?.comments || []}
@@ -123,6 +144,8 @@ const page = async ({ params, searchParams }: Params) => {
             commentsOrder={commentsOrder.toString()}
           />
         </div>
+      <Pagination currentSlug={params.slug} />
+
       </div>
     </div>
   );
@@ -134,7 +157,7 @@ const myPortableTextComponents = {
   types: {
     image: ({ value }: any) => (
       <Image
-        src={urlForImage(value).url()}
+        src={urlFor(value).url()}
         alt="Post"
         width={700}
         height={700}

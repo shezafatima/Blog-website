@@ -14,11 +14,11 @@ const AddComment = ({ postId }: Props) => {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    const { name, email, comment } = data;
+    const { name,  comment } = data;
 
     const res = await fetch("/api/comment", {
       method: "POST",
-      body: JSON.stringify({ name, email, comment, postId }),
+      body: JSON.stringify({ name,  comment, postId }),
     });
     if (!res.ok) {
       console.log("Failed to add comment");
@@ -45,22 +45,7 @@ const AddComment = ({ postId }: Props) => {
         {errors.name && (
           <p className="text-red-600 text-xs">Name is required.</p>
         )}
-        <label>
-          Email{" "}
-          <span className="text-xs">(Your email will not be published!)</span>
-        </label>
-        <input
-          {...register("email", {
-            required: true,
-            pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-          })}
-          className="mb-4 py-1 bg-amber-100 dark:bg-slate-900"
-        />
-        {errors.email && (
-          <p className="text-red-600 text-xs">
-            Please enter a valid email address.
-          </p>
-        )}
+        
         <label>Comment</label>
         <textarea
           {...register("comment", { required: true, minLength: 2 })}
