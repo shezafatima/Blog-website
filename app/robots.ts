@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/studio',
     },
-    sitemap: 'https://next-cms-blog-ce.vercel.app/sitemap.xml',
+    sitemap: 'https://technowledge-blog.netlify.app/sitemap.xml',
   }
 }

@@ -31,15 +31,9 @@
   
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { createClient } from "@sanity/client";
+import { client } from "@/sanity/lib/client";
 
-// Sanity client configuration
-const sanityClient = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-  token: process.env.NEXT_PUBLIC_SANITY_TOKEN!,
-  useCdn: false,
-});
+
 
 // Define the GET handler
 export async function GET(req: NextRequest) {
@@ -51,7 +45,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const count = await sanityClient.fetch(
+    const count = await client.fetch(
       `count(*[_type == "like" && post._ref == $postId])`,
       { postId }
     );
